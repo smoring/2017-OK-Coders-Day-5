@@ -1,0 +1,18 @@
+{
+  "name": "2017-okcoders-day-5",
+  "version": "1.0.0",
+  "description": "A todo list application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "todo"
+  ],
+  "author": "Susan Moring <susanmoring@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^4.9.5",
+    "restify": "^4.3.0"
+  }
+}
