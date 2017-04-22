@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Task List</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  	<script language="javascript" type="appication/javascript">
+  	console.log("running")
+ 		function getTasks(){
+ 			console.log('called')
+ 			$.getJSON('/tasks', function(result){
+ 				$.each(result, function(i, field){
+ 					var ldate = new Date(field.date)
+ 					$("#taskList").append( "<a href='#' class='list-group-item'>" +
+ 						"<h4 class='list-group-item-heading'>" +
+ 							"<span class='glyphicon glyphicon-remove'></span>" +
+ 							field.task + "</h4>" +
+ 						"<p class='list-group-item-text'>" + ldate.toLocaleDateString() + 
+ 						"</p></a>");
+ 				});
+ 			});
+ 		};
+ 		$( document ).ready(function(){
+ 			getTasks();
+ 			$("#addTask").click(function(){
+ 				var newTask = $("#newTask").val();
+ 				if(newTask === ""){ return false; }
+ 				else {
+ 					$.post('/tasks/' + newTask, function(data){
+ 						$("#taskList").empty();
+ 						getTasks();
+ 						$("#newTask").val("");
+ 						alert("Success");
+ 					});
+ 				}
+ 			})
+ 		});
+  	</script>
+</head>
+<body>
+	<div class="jumbotron">
+		<div class="container">
+			<h1>ToDo List</h1>
+			<div class="input-group">
+				<input id="newTask" type="text" class="form-control" placeholder="Need to do...">
+				<span class="input-group-btn">
+					<button id="addTask" class="btn btn-default" type="button">
+						Add Task
+					</button>button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div id="taskList" class="list-group">
+	</div>
+</body>
+</html>
+
+
+
+
+
+
